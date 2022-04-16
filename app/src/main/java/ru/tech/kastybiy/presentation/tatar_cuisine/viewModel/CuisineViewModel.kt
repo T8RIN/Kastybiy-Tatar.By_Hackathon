@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import ru.tech.kastybiy.core.Action
-import ru.tech.kastybiy.domain.use_case.cuisine.get_cuisine.GetCuisineUseCase
+import ru.tech.kastybiy.domain.use_case.get_cuisine.GetCuisineUseCase
 import ru.tech.kastybiy.presentation.tatar_cuisine.components.CuisineState
 import javax.inject.Inject
 

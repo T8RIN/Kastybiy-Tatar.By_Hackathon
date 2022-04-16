@@ -1,4 +1,4 @@
-package ru.tech.kastybiy.domain.use_case.cuisine.update_favorite
+package ru.tech.kastybiy.domain.use_case.update_favorite
 
 import ru.tech.kastybiy.domain.repository.KastybiyRepository
 import javax.inject.Inject

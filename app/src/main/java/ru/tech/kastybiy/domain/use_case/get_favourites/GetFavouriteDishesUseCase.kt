@@ -1,4 +1,4 @@
-package ru.tech.kastybiy.domain.use_case.cuisine.get_dish_by_id
+package ru.tech.kastybiy.domain.use_case.get_favourites
 
 import kotlinx.coroutines.flow.Flow
 import ru.tech.kastybiy.core.Action
@@ -6,12 +6,12 @@ import ru.tech.kastybiy.domain.model.Cuisine
 import ru.tech.kastybiy.domain.repository.KastybiyRepository
 import javax.inject.Inject
 
-class GetDishByIdUseCase @Inject constructor(
+class GetFavouriteDishesUseCase @Inject constructor(
     private val repository: KastybiyRepository
 ) {
 
-    operator fun invoke(id: Int): Flow<Action<Cuisine>> {
-        return repository.getDishById(id)
+    operator fun invoke(): Flow<Action<List<Cuisine>>> {
+        return repository.getFavouriteRecipes()
     }
 
 }

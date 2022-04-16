@@ -1,4 +1,4 @@
-package ru.tech.kastybiy.domain.use_case.cuisine.get_cuisine
+package ru.tech.kastybiy.domain.use_case.get_cuisine
 
 import kotlinx.coroutines.flow.Flow
 import ru.tech.kastybiy.core.Action

@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.tech.kastybiy.core.Action
-import ru.tech.kastybiy.domain.use_case.cuisine.get_fridge_list.GetFridgeListUseCase
-import ru.tech.kastybiy.domain.use_case.cuisine.update_fridge.UpdateFridgeUseCase
+import ru.tech.kastybiy.domain.use_case.get_fridge_list.GetFridgeListUseCase
+import ru.tech.kastybiy.domain.use_case.update_fridge.UpdateFridgeUseCase
 import ru.tech.kastybiy.presentation.products_list.components.FridgeListState
 import javax.inject.Inject
 

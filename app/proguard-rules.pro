@@ -43,6 +43,6 @@
     @com.squareup.moshi.ToJson <methods>;
 }
 
--keepnames @kotlin.Metadata class ru.tech.papricoin.data.**
--keep class ru.tech.papricoin.data.** { *; }
--keepclassmembers class ru.tech.papricoin.data.** { *; }
+-keepnames @kotlin.Metadata class ru.tech.kastybiy.data.**
+-keep class ru.tech.kastybiy.data.** { *; }
+-keepclassmembers class ru.tech.kastybiy.data.** { *; }

@@ -11,8 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.tech.kastybiy.core.Action
 import ru.tech.kastybiy.domain.model.Cuisine
-import ru.tech.kastybiy.domain.use_case.cuisine.get_cuisine.GetCuisineUseCase
-import ru.tech.kastybiy.domain.use_case.cuisine.get_fridge_list.GetFridgeListUseCase
+import ru.tech.kastybiy.domain.use_case.get_cuisine.GetCuisineUseCase
+import ru.tech.kastybiy.domain.use_case.get_fridge_list.GetFridgeListUseCase
 import ru.tech.kastybiy.presentation.tatar_cuisine.components.CuisineState
 import javax.inject.Inject
 import kotlin.math.roundToInt

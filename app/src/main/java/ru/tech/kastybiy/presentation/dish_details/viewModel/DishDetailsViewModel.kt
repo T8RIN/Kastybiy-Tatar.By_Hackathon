@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import ru.tech.kastybiy.core.Action
-import ru.tech.kastybiy.domain.use_case.cuisine.check_favourite.CheckFavouriteUseCase
-import ru.tech.kastybiy.domain.use_case.cuisine.get_dish_by_id.GetDishByIdUseCase
-import ru.tech.kastybiy.domain.use_case.cuisine.update_favorite.UpdateFavDishUseCase
+import ru.tech.kastybiy.domain.use_case.check_favourite.CheckFavouriteUseCase
+import ru.tech.kastybiy.domain.use_case.get_dish_by_id.GetDishByIdUseCase
+import ru.tech.kastybiy.domain.use_case.update_favorite.UpdateFavDishUseCase
 import ru.tech.kastybiy.presentation.dish_details.components.DishDetailsState
 import javax.inject.Inject
 
