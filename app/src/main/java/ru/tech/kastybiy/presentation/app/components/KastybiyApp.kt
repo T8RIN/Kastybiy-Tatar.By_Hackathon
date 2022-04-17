@@ -8,6 +8,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FindReplace
 import androidx.compose.material.icons.outlined.PhoneAndroid
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -62,7 +66,45 @@ fun KastybiyApp(viewModel: MainViewModel = viewModel()) {
                     Surface(color = backgroundColor) {
                         CenterAlignedTopAppBar(
                             modifier = Modifier.statusBarsPadding(),
-                            title = { Text(viewModel.title) },
+                            navigationIcon = {
+                                val focus = LocalFocusManager.current
+                                if (viewModel.selectedItem == 0) {
+                                    IconButton(onClick = {
+                                        if (viewModel.searchMode) {
+                                            focus.clearFocus()
+                                            viewModel.updateSearch("")
+                                        }
+                                        viewModel.searchMode = !viewModel.searchMode
+                                    }) {
+                                        Icon(
+                                            if (!viewModel.searchMode) Icons.Rounded.Search else Icons.Rounded.ArrowBack,
+                                            null
+                                        )
+                                    }
+                                }
+                            },
+                            actions = {
+                                if (viewModel.selectedItem == 0 && viewModel.searchMode) {
+                                    IconButton(onClick = {
+                                        if (viewModel.searchString.value.isNotEmpty())
+                                            viewModel.updateSearch("")
+                                    }) {
+                                        Icon(Icons.Rounded.Close, null)
+                                    }
+                                }
+                            },
+                            title = {
+                                Box {
+                                    if (!viewModel.searchMode) {
+                                        Text(viewModel.title)
+                                    } else {
+                                        SearchBar(
+                                            searchString = viewModel.searchString.value,
+                                            onValueChange = { viewModel.updateSearch(it) }
+                                        )
+                                    }
+                                }
+                            },
                             scrollBehavior = viewModel.scrollBehavior,
                             colors = foregroundColors
                         )
@@ -111,6 +153,8 @@ fun KastybiyApp(viewModel: MainViewModel = viewModel()) {
                                                 navController.popBackStack()
                                                 launchSingleTop = true
                                             }
+                                            viewModel.searchMode = false
+                                            viewModel.updateSearch("")
                                         }
                                     }
                                 )
@@ -155,7 +199,8 @@ fun KastybiyApp(viewModel: MainViewModel = viewModel()) {
                             Spacer(Modifier.size(8.dp))
                             ExtendedFloatingActionButton(
                                 onClick = {
-                                    if (viewModel.productsList.value.list != null) viewModel.openSheet = true
+                                    if (viewModel.productsList.value.list != null) viewModel.openSheet =
+                                        true
                                 },
                                 text = {
                                     Text("Сайларга")
@@ -168,14 +213,14 @@ fun KastybiyApp(viewModel: MainViewModel = viewModel()) {
                 },
                 snackbarHost = { SnackbarHost(snackbarHostState) },
                 modifier = Modifier.nestedScroll(viewModel.scrollBehavior.nestedScrollConnection)
-            ) { pv ->
+            ) { contentPadding ->
                 NavHost(
                     navController = navController,
                     startDestination = Screen.Cuisine.route,
-                    Modifier.padding(pv)
+                    Modifier.padding(contentPadding)
                 ) {
                     composable(Screen.Cuisine.route) {
-                        CuisineScreen(snackbarHostState, viewModel.id)
+                        CuisineScreen(snackbarHostState, viewModel.id, viewModel.searchString)
                     }
                     composable(Screen.Fridge.route) {
                         FridgeScreen()
@@ -268,6 +313,12 @@ fun KastybiyApp(viewModel: MainViewModel = viewModel()) {
                         }
                     }
                 )
+            }
+
+            if (viewModel.searchMode && viewModel.searchString.value.isEmpty()) {
+                BackHandler {
+                    viewModel.searchMode = false
+                }
             }
         }
     }

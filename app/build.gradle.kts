@@ -14,8 +14,8 @@ android {
         applicationId = "ru.tech.kastybiy"
         minSdk = 21
         targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
 
     }
 
@@ -96,7 +96,6 @@ dependencies {
     //Accompanist
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.5-alpha")
     implementation("com.google.accompanist:accompanist-flowlayout:0.24.5-alpha")
-    implementation("com.google.accompanist:accompanist-navigation-material:0.24.5-alpha")
 
     //Coil
     implementation("io.coil-kt:coil:2.0.0-rc01")

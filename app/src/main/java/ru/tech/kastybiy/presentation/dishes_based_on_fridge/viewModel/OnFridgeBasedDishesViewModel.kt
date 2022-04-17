@@ -13,7 +13,7 @@ import ru.tech.kastybiy.core.Action
 import ru.tech.kastybiy.domain.model.Cuisine
 import ru.tech.kastybiy.domain.use_case.get_cuisine.GetCuisineUseCase
 import ru.tech.kastybiy.domain.use_case.get_fridge_list.GetFridgeListUseCase
-import ru.tech.kastybiy.presentation.tatar_cuisine.components.CuisineState
+import ru.tech.kastybiy.presentation.dishes_based_on_fridge.components.PodborState
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -26,8 +26,8 @@ class OnFridgeBasedDishesViewModel @Inject constructor(
     @ExperimentalMaterial3Api
     val scrollBehavior by mutableStateOf(TopAppBarDefaults.pinnedScrollBehavior())
 
-    private val _dishes = mutableStateOf(CuisineState())
-    val dishes: State<CuisineState> = _dishes
+    private val _dishes = mutableStateOf(PodborState())
+    val dishes: State<PodborState> = _dishes
 
     init {
         fetch()
@@ -44,7 +44,7 @@ class OnFridgeBasedDishesViewModel @Inject constructor(
                     when (result1) {
                         is Action.Success -> {
                             val tmp = result1.data ?: emptyList()
-                            val lst = arrayListOf<Cuisine>()
+                            val lst = arrayListOf<Pair<Cuisine, Int>>()
 
                             tmp.forEach { dish ->
                                 var cnt = 0
@@ -53,20 +53,21 @@ class OnFridgeBasedDishesViewModel @Inject constructor(
                                 }
                                 val coeff =
                                     (cnt / dish.productIds.size.toFloat() * 100).roundToInt()
-                                if (coeff > 49) {
-                                    lst.add(dish)
+                                if (coeff > 29) {
+                                    lst.add(Pair(dish, coeff))
                                 }
                             }
 
-                            _dishes.value = CuisineState(cuisineList = lst)
+                            _dishes.value =
+                                PodborState(cuisineList = lst.sortedByDescending { it.second })
                         }
                         is Action.Empty -> {
-                            _dishes.value = CuisineState(
+                            _dishes.value = PodborState(
                                 error = result1.message ?: "Нәрсәдер начар булып чыккан"
                             )
                         }
                         is Action.Loading -> {
-                            _dishes.value = CuisineState(isLoading = true)
+                            _dishes.value = PodborState(isLoading = true)
                         }
                     }
                 }

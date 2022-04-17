@@ -89,7 +89,11 @@ fun CuisineItem(cuisine: Cuisine, onClick: (id: Int) -> Unit) {
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(Icons.Outlined.LocalFireDepartment, null, tint = MaterialTheme.colorScheme.outline)
+                    Icon(
+                        Icons.Outlined.LocalFireDepartment,
+                        null,
+                        tint = MaterialTheme.colorScheme.outline
+                    )
                     Spacer(Modifier.size(15.dp))
                     Text(
                         "Б ${cuisine.proteins}\nЖ ${cuisine.fats}\nУ ${cuisine.carboh}",

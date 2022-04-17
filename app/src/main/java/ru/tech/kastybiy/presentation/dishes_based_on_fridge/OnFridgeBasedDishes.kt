@@ -65,8 +65,14 @@ fun OnFridgeBasedDishes(
                     if (state.cuisineList.isNotEmpty()) {
                         LazyColumn {
                             items(state.cuisineList.size) { index ->
-                                CuisineItem(state.cuisineList[index]) {
-                                    idState.value = it
+                                Row {
+                                    Text(
+                                        "${state.cuisineList[index].second}%",
+                                        modifier = Modifier.padding(top = 10.dp, start = 10.dp)
+                                    )
+                                    CuisineItem(state.cuisineList[index].first) {
+                                        idState.value = it
+                                    }
                                 }
                                 Spacer(Modifier.height(10.dp))
                             }

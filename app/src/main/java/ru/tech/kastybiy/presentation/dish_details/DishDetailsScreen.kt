@@ -1,10 +1,12 @@
 package ru.tech.kastybiy.presentation.dish_details
 
+import android.content.Intent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.BrokenImage
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
@@ -42,6 +44,8 @@ fun DishDetailsScreen(
 
     val state = viewModel.dishState.value
 
+    val context = LocalContext.current
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -67,7 +71,22 @@ fun DishDetailsScreen(
                             }
                         },
                         scrollBehavior = viewModel.scrollBehavior,
-                        colors = foregroundColors
+                        colors = foregroundColors,
+                        actions = {
+                            IconButton(onClick = {
+                                val intent = Intent().apply {
+                                    action = Intent.ACTION_SEND
+                                    putExtra(
+                                        Intent.EXTRA_TEXT,
+                                        viewModel.dishState.value.dish?.toShareValue()
+                                    )
+                                    type = "text/plain"
+                                }
+                                context.startActivity(Intent.createChooser(intent, "Уртаклашу"))
+                            }) {
+                                Icon(Icons.Outlined.Share, null)
+                            }
+                        }
                     )
                 }
             },

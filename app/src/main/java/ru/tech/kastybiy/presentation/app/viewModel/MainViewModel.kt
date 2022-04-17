@@ -25,11 +25,13 @@ class MainViewModel @Inject constructor(
     private val updateFridgeUseCase: UpdateFridgeUseCase
 ) : ViewModel() {
 
+    var searchMode by mutableStateOf(false)
     var openSheet by mutableStateOf(false)
 
     var selectedItem by mutableStateOf(0)
     var title by mutableStateOf(Screen.Cuisine.title)
     val id = mutableStateOf(-1)
+    val searchString = mutableStateOf("")
 
     var showProductsDialog by mutableStateOf(false)
 
@@ -55,7 +57,7 @@ class MainViewModel @Inject constructor(
             when (result) {
                 is Action.Success -> {
                     _productsList.value =
-                        ProductsListState(list = result.data)
+                        ProductsListState(list = result.data?.sortedBy { it.name })
 
                     default.clear()
                     result.data?.let { default.addAll(it) }
@@ -85,5 +87,9 @@ class MainViewModel @Inject constructor(
             }
             tempList.clear()
         }
+    }
+
+    fun updateSearch(newSearch: String) {
+        searchString.value = newSearch
     }
 }
